@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p style="margin:0;">₦${(item.price * item.quantity).toLocaleString()}</p>
             </div>
 
-            <div style="display:flex;align-items:center;gap:5px;">
+            <div style="display:flex;align-items:center;gap:px;">
 
                 <button class="qtyBtn"
                     data-id="${item.id}"
