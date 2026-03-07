@@ -9,6 +9,7 @@
 body { 
   background:#f5f7fb; 
   color:#222; 
+   padding-top:85px;
 }
 
 /* HEADER */
@@ -19,8 +20,14 @@ body {
   padding:20px 40px; 
   background:#0b3d91; 
   color:white; 
-  position:relative;
+  position:fixed;       /* Make header fixed */
+  top:0;                /* Stick to top */
+  left:0;               /* Align to left edge */
+  width:100%;           /* Full width */
+  z-index:1000;         /* Stay above other content */
 }
+
+
 
 #logo { 
   display:flex; 
@@ -111,7 +118,7 @@ body {
 #cart-panel {
   position:fixed; 
   right:-350px; 
-  top:0; 
+  top: 90px; 
   width:350px; 
   height:100%;
   background:white; 
