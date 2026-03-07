@@ -246,7 +246,11 @@ input, select, textarea {
         #close-cart:hover{
             color:red;
         }
-
+#logo img{
+height:80px;
+max-width:70%;
+object-fit:contain;
+}
         /* TOAST */
         #toast{
             position:fixed;
