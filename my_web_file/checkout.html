@@ -16,6 +16,15 @@
         .button:hover{background:#219150;}
         .quantity-btn{padding:5px 10px; cursor:pointer; margin:0 5px; background:#eee; border-radius:4px; border:none;}
         .quantity-display{font-weight:bold; min-width:20px; display:inline-block; text-align:center;}
+        #continue-shopping {
+    background:#f1c40f; /* Yellow color for distinction */
+    color:#fff;
+    margin-left:10px;
+}
+
+#continue-shopping:hover {
+    background:#d4ac0d;
+}
     </style>
 </head>
 <body>
@@ -42,6 +51,8 @@
 
     <a id="checkout-whatsapp" class="button" href="#" target="_blank">Checkout via WhatsApp</a>
 </div>
+<!-- Continue Shopping Button -->
+<a id="continue-shopping" class="button" href="index.html">Continue Shopping</a>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -61,14 +72,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
             let tr = document.createElement("tr");
             tr.innerHTML = `
-                <td>${item.name}</td>
-                <td>₦${item.price.toLocaleString()}</td>
-                <td>
-                    <button class="quantity-btn decrease" data-id="${item.id}">−</button>
-                    <span class="quantity-display">${item.quantity}</span>
-                    <button class="quantity-btn increase" data-id="${item.id}">+</button>
-                </td>
-                <td>₦${subtotal.toLocaleString()}</td>
+              <tr>
+    <td>${item.name}</td>
+    <td>₦${item.price.toLocaleString()}</td>
+    <td>
+        <input type="number" class="quantity-input" data-id="${item.id}" value="${item.quantity}" min="1" style="width:50px; text-align:center;" />
+    </td>
+    <td>₦${subtotal.toLocaleString()}</td>
+    <td><button class="delete-btn" data-id="${item.id}" style="background:red; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button></td>
+</tr>
             `;
             tbody.appendChild(tr);
         });
@@ -76,7 +88,33 @@ document.addEventListener("DOMContentLoaded", function(){
         totalDisplay.innerText = total.toLocaleString();
         updateWhatsAppLink(total);
     }
+// Quantity input change and Enter key
+document.addEventListener("keydown", function(e){
+    if(e.target.classList.contains("quantity-input") && e.key === "Enter"){
+        let id = e.target.dataset.id;
+        let value = parseInt(e.target.value);
+        if(value > 0){
+            let item = cart.find(i => i.id === id);
+            if(item){
+                item.quantity = value;
+                saveCart();
+            }
+        } else {
+            // If zero or invalid, remove the item
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+        }
+    }
+});
 
+// Delete button
+document.addEventListener("click", function(e){
+    if(e.target.classList.contains("delete-btn")){
+        let id = e.target.dataset.id;
+        cart = cart.filter(i => i.id !== id);
+        saveCart();
+    }
+});
     function updateWhatsAppLink(total){
         let message = "Hello, I want to order the following from Elekko Agrovet:%0A";
         cart.forEach(item=>{
