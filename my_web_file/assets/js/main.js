@@ -46,17 +46,42 @@ document.addEventListener("DOMContentLoaded", function() {
             count += item.quantity;
             const div = document.createElement("div");
             div.classList.add("cart-item");
-            div.innerHTML = `
-                <div style="flex:1;">
-                    <p style="margin:0;font-weight:600;">${item.name}</p>
-                    <p style="margin:0;">₦${(item.price*item.quantity).toLocaleString()}</p>
-                </div>
-                <div style="display:flex;align-items:center;gap:5px;">
-                    <button class="qtyBtn" data-id="${item.id}" data-action="decrease">−</button>
-                    <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" class="qtyInput" style="width:50px;text-align:center;">
-                    <button class="qtyBtn" data-id="${item.id}" data-action="increase">+</button>
-                    <button class="deleteBtn" data-id="${item.id}">🗑</button>
-                </div>
+              div.innerHTML = `
+            <div style="flex:1;">
+                <p style="margin:0;font-weight:600;">${item.name}</p>
+                <p style="margin:0;">₦${(item.price * item.quantity).toLocaleString()}</p>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:5px;">
+
+                <button class="qtyBtn"
+                    data-id="${item.id}"
+                    data-action="decrease"
+                    style="width:36px;height:36px;font-size:18px;border:none;background:#0b3d91;color:white;border-radius:6px;cursor:pointer;">
+                    −
+                </button>
+
+                <input type="number"
+                    min="1"
+                    value="${item.quantity}"
+                    data-id="${item.id}"
+                    class="qtyInput"
+                    style="width:45px;height:36px;text-align:center;font-size:16px;border:1px solid #ccc;border-radius:6px;">
+
+                <button class="qtyBtn"
+                    data-id="${item.id}"
+                    data-action="increase"
+                    style="width:36px;height:36px;font-size:18px;border:none;background:#0b3d91;color:white;border-radius:6px;cursor:pointer;">
+                    +
+                </button>
+
+                <button class="deleteBtn"
+                    data-id="${item.id}"
+                    style="width:36px;height:36px;font-size:18px;border:none;background:#ff3c3c;color:white;border-radius:6px;cursor:pointer;">
+                    🗑
+                </button>
+
+            </div>
             `;
             cartItems.appendChild(div);
         });
